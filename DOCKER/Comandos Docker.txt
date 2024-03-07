@@ -1,0 +1,234 @@
+docker ps
+- listar conteners ativo
+ 
+docker ps -a
+- listar todos os contenderes, até os inativos
+
+
+>docker run -it --rm ubuntu bash
+docker run : executar algo
+-it : após isso vem os parâmetros
+Bash : comando executado no contener 
+—rm : remover contener depois que sair
+
+=========================================================================
+
+Servidor web comun, prox reverso
+>docker run nginx
+
+
+>Docker run -d -p 8080:80 --name nginx nginx
+
+-d : (desatachando) para o serviço (terminal) nao ficar preso
+-p : defini portas, 80 da maquina local (física) para 8080 do serviço docker nginx
+--name : dar nome para o contaner
+
+>docker stop [ CONTAINER ID ]
+
+>docker start [ CONTAINER ID ]
+
+>docker rm [ CONTAINER ID ]
+
+*executar comandos dentro do docker*
+docker exec nginx ls
+
+*acessar bash (linha de comandos) do contener*
+docker exec -it nginx bash  
+
+*acessar pasta onde esta o arquivo índex.html do nginx*
+cd /usr/share/nginx/html/
+
+
+
+*INSTALAR O VIM - editor de texto do linux* 
+1. apt-get update     
+
+2. apt-get install vim
+
+
+*BIND MOUNTS - vincular maquina pasta na maquina local, com pasta do contaner, para nao perder as alterações*
+docker run -d --name nginx -p 8080:80 -v /Users/miguelbernardo/Documents/Cursos/FullCycle:/usr/share/nginx/html nginx
+
+Com o -v ele vai criar a pasta na origem se nao existir
+
+
+->comando atualizado:
+
+docker run -d --name nginx -p 8080:80 --mount type=bind,source="$(pwd)",target=/usr/share/nginx/html nginx
+
+OBS: $(pwd) : pega o caminho local na pasta posicionada;
+
+
+=========================================================================
+
+TRABALHANDO COM VOLUMES
+
+Criando um volume
+>docker volume create meuVolume
+
+>docker volume inspect meuVolume
+
+** apagar volume
+>docker volume prune
+
+
+=========================================================================
+
+BAIXAR IMAGEM
+
+>docker pull php
+
+** baixar uma versão especifica
+>docker pull php:rc-alpine
+
+** remover imagem
+>docker rmi php:latest
+
+=========================================================================
+
+CRIANDO A PROPRIA IMAGEM
+
+->escrito o arquivo:fonte dockerfile
+
+>docker build -t miguelbernardo/nginx-com-vim:latest .
+
+** rodar a imagem que eu mesmo criei 
+>docker run -it miguelbernardo/nginx-com-vim bash
+
+=========================================================================
+
+FROM nginx:latest
+
+WORKDIR /Users/miguelbernardo/Documents/Cursos/FullCycle/app
+
+RUN apt-get update && \
+    apt-get install vim -y
+
+COPY html/ /usr/share/nginx/html
+
+=========================================================================
+
+matar todos os containers - ativos e inativos
+
+>docker rm $(docker ps -a -q) -f
+
+=========================================================================
+
+ENTRYPOINT X CMD
+
+>docker build -t miguelbernardo/hello .
+
+executar docker
+>docker run --rm miguelbernardo/hello:latest
+
+SUBSTITUIR CMD no Dockerfile
+
+>docker run --rm miguelbernardo/hello echo "oi"
+
+
+->Dockerfile
+FROM ubuntu:latest
+
+CMD [ "echo", "Hello World" ]
+
+
+
+- ENTRYPOINT - 
+
+->Dockerfile
+FROM ubuntu:latest
+
+ENTRYPOINT [ "echo", "Hello"]
+
+CMD [ "World" ]
+
+*-* neste caso o CMD fica variavel:
+ex.
+MacBernardo:FullCycle miguelbernardo$ docker run --rm miguelbernardo/hello Miguel
+Hello Miguel
+
+>docker run --rm -d -p 8080:80 miguelbernardo/nginx-fullcycle
+
+
+** subir minha versao para o DOCKER HUB
+>docker push miguelbernardo/nginx-fullcycle
+
+
+=========================================================================
+
+NETWORK
+** um container se comunicar com outro
+tipos: - bridge - host - overlay - maclan - none
+
+
+** criar nova rede
+>docker network create --driver bridge minharede
+
+** iniciando um container com a nova rede
+>docker run -dit --name ubuntu1  --network minharede bash
+
+** acessar container
+>docker exec -it ubuntu1 bash
+
+*** se nao usar o --network para eexpecificar a rede, é possivel 
+conecta-la depois
+>docker network connect minharede ubuntu3
+
+
+** consultar container na rede
+>docker network inspect minharede
+
+=========================================================================
+
+INSTALANDO php
+
+>docker run -it --name php php:7.4-cli bash
+
+>apt-get update
+
+** pegar versao do php
+>php -v
+
+** instalar extensao zip
+>apt-get install libzip-dev
+>docker-php-ext-install zip
+
+->Compilar e iniciar container
+->Gerar/iniciar container
+>docker build -t miguelbernardo/laravel:latest .
+>docker run --rm -d --name laravel -p 8000:8000 miguelbernardo/laravel
+
+
+
+** subir para servidor
+>docker push miguelbernardo/laravel
+
+
+=========================================================================
+
+NODE
+
+>docker run --rm -it -v $(pwd)/:/usr/src/app -p 3000:3000 node:15 bash
+
+** instalar node
+
+>npm init
+>npm install express --save 
+
+** build em arquivo com nome diferente do padrao
+>docker build -t miguelbernardo/hello-express node/ -f node/Dockerfile.prod
+
+
+=========================================================================
+Multistage build
+-> pegar resultado gerado em um stagio e jogar para o outro;
+
+docker build -t miguelbernardo/laravel:prod laravel -f laravel/Dockerfile.prod 
+
+
+* listar imagens images pesquisando (grep) por palavra
+>docker images | grep laravel
+
+=========================================================================
+DOCKER COMPOSE
+* subir os contener

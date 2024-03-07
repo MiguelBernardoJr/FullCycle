@@ -1,0 +1,21 @@
+
+# COMANDOS
+>docker-compose up -d --build
+
+# ACESSAR PASTA DE ONDE ESTA OS ARQUIVOS
+* acessar container NODE, name = app
+>docker exec -it app bash
+
+* acessar container MYSQL, name = db
+>docker exec -it db bash
+
+acessar client do MYSQL;
+    - executar comandos SQL
+>mysql -uroot -p
+
+
+comandos do MYSQL
+>show databases;
+>use nodedb;
+>create table people(id int not null auto_increment, name varchar(255), primary key(id));
+

@@ -1,0 +1,8 @@
+FROM nginx:1.15.0-alpine
+
+# removendo o arquivo
+# RUN rm /etc/nginx/conf.d/defaul.conf 
+COPY nginx.conf /etc/nginx/conf.d
+
+# gerar arquivo php, pois se nao existir, vai dar erro na chamada
+RUN mkdir /var/www/html -p && touch /var/www/html/index.php
