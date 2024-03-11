@@ -896,3 +896,6 @@ DOCKER/mysql/mysql/columns_priv.MYI
 DOCKER/mysql/mysql/columns_priv.MYD
 DOCKER/mysql/mysql/columns_priv.frm
 DOCKER/mysql/mysql.sock
+DOCKER/mysql/ib_logfile0
+DOCKER/mysql/ibdata1
+Docker/mysql/ibtmp1

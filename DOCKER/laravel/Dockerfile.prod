@@ -12,12 +12,12 @@ RUN  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"  
     php -r "unlink('composer-setup.php');"
 
 RUN php composer.phar create-project --prefer-dist laravel/laravel laravel
-# ate aqui é o primeiro stagio
+# ate aqui é o primeiro estagio
 
 
 
 
-# aqui comeca um novo stagio
+# aqui comeca um novo estagio
 FROM php:7.4-fpm-alpine
 WORKDIR /var/www
 RUN rm -rf /var/www/html
