@@ -1,0 +1,30 @@
+INSTALACAO DO GIT FLOW
+
+curl
+wget: command not found? curl is only two. (Note that URL is where the above URL currently redirects.)
+
+>curl https://raw.githubusercontent.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh > gitflow-installer.sh
+chmod a+x gitflow-installer.sh
+
+>git init
+>git branch
+
+COMERÇAR UMA FEATURE ?
+>git flow feature start welcome
+
+LISTAR QUAIS ARQUIVOS NAO ESTAO COMITADOS ?
+>git status
+
+INFORMAR O QUE SERA COMITADO ?
+(pode ser . no lugar do nome do arquivo)
+>git add index.html  
+
+FINALIZANDO FEATURE E MIGRANDO PARA O DEVELOP ?
+>git flow feature finish welcome
+
+/*
+Summary of actions:
+- The feature branch 'feature/welcome' was merged into 'develop'
+- Feature branch 'feature/welcome' is still locally available
+- You are now on branch 'develop'
+*/
