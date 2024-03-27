@@ -1,0 +1,34 @@
+
+>> mudar usuario/liberacao:
+>chown miguelbernardo:staff .gnupg
+>chmod +x .zshrc 
+
+
+>> lista keys
+>sudo gpg --list-keys
+-> Longa
+>gpg --list-secret-key --keyid-form LONG
+
+>> deletar assinatura GPD
+>sudo gpg --delete-key 0AFFA6CF3FF7C3983DAB14B1AC6E153F3EF4D092 
+
+>> gerar nova chave
+>gpg --full-generate-key
+
+
+>> gerar a public keys
+>gpg --armor --export + [chave]
+
+
+>> configurar a chave no github
+>git config --global user.signinkey 8202D0BD6DF3B608
+
+
+_____________________________________________
+senha chave git hub
+M@ster!@#
+
+
+
+
+8202D0BD6DF3B608

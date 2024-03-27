@@ -1,0 +1,28 @@
+>go mod init github.com/MiguelBernardoJr/FullCycle/13-GraphQL
+
+>printf '// +build tools\npackage tools\nimport (_ "github.com/99designs/gqlgen"\n _ "github.com/99designs/gqlgen/graphql/introspection")' | gofmt > tools.go
+
+>go mod tidy
+
+>go run github.com/99designs/gqlgen init
+
+
+} RODAR SERVIDOR
+>go run server.go
+
+
+} apos fazer o meu proprio schema.graphqls, usa outro comando, nao mais com init
+>go run github.com/99designs/gqlgen generate
+
+
+
+
+} RODAR SERVIDOR DEPOIS QUE MUDOU DE LUGAR
+>go run cmd/server/server.go
+
+
+
+========================================================================
+>> CONECTAR/CRIAR BANCO ( SQLITE3 )
+========================================================================
+>sqlite3 data.db
