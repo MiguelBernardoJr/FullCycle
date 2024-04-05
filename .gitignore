@@ -899,3 +899,4 @@ DOCKER/mysql/mysql.sock
 DOCKER/mysql/ib_logfile0
 DOCKER/mysql/ibdata1
 Docker/mysql/ibtmp1
+zFullCycleBKP/

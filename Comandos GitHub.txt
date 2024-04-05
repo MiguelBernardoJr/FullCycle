@@ -35,6 +35,27 @@ M@ster!@#
 
 
 
+==================================================================
 
-git commit -m 'reload total'
+Lucian Tavares — Hoje às 14:22
+gpg --delete-secret-key
+Lucian Tavares — Hoje às 14:33
+gpg –full-generate-key
+brew install gpg
+Lucian Tavares — Hoje às 14:47
+gpg --list-secret-key --keyid-form LONG
+
+}} gerar chave publica
+gpg --armor --export
+
+
+git config --global user.signinkey
+
+export GPG_TTY=$(tty)
+
+git config --global commit.gpgsign true
+
+
+
+git commit -m 'reload total protheus'
 git push origin main
