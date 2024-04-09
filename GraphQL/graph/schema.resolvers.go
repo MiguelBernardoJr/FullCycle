@@ -12,6 +12,7 @@ import (
 
 // Courses is the resolver for the courses field.
 func (r *categoryResolver) Courses(ctx context.Context, obj *model.Category) ([]*model.Course, error) {
+
 	courses, err := r.CourseDB.FindByCategoryID(obj.ID)
 	if err != nil {
 		return nil, err
